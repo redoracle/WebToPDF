@@ -1,7 +1,10 @@
 # WebToPDF-Crawler
 
-Author: Redoracle
-License: MIT
+#### Author: Redoracle
+#### License: MIT
+
+![WebToPDF-Crawler](https://raw.githubusercontent.com/redoracle/WebToPDF-Crawler/main/WebToPDF%20Crawler%20Logo.webp)
+
 
 This script performs a web crawling operation starting from a given URL, extracting content from the crawled pages,
 including text and the first encountered image. It handles images in various formats, with special handling for SVG images
