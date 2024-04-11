@@ -1,0 +1,44 @@
+name: Build and Push WebToPdf Docker Image
+
+on:
+  workflow_dispatch:
+    inputs:
+      deploy_branch:
+        description: Branch to deploy
+        required: false
+        default: master
+      testing:
+        description: Testing workflow
+        required: false
+        type: boolean
+        default: false
+  push:
+    paths:
+      - 'WebToPDF-crawler.py'
+      - 'requirements.txt'
+      - 'Dockerfile'
+
+jobs:
+  build-and-push:
+    env:
+      REGISTRY: docker.io
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Docker Login
+      run: |
+        echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USER }}" --password-stdin
+    - name: Build WebToPdf Docker Image
+      run: |
+        docker build -t ${{ env.REGISTRY }}/${{ secrets.DOCKER_USER }}/webtopdf:latest .
+    - name: Push Docker Image
+      if: github.event.inputs.testing == 'false' && github.event.inputs.deploy_branch == 'master'
+      run: |
+        docker push ${{ env.REGISTRY }}/${{ secrets.DOCKER_USER }}/webtopdf:latest
+    - name: Add summary details
+      if: always()
+      run: |
+        echo "## Summary Details" >> $GITHUB_STEP_SUMMARY
+        echo "* Docker Image: ${{ env.REGISTRY }}/${{ secrets.DOCKER_USER }}/webtopdf:latest" >> $GITHUB_STEP_SUMMARY
+        echo "* Deploy Branch: ${{ github.event.inputs.deploy_branch }}" >> $GITHUB_STEP_SUMMARY
+        echo "* Testing: ${{ github.event.inputs.testing }}" >> $GITHUB_STEP_SUMMARY
