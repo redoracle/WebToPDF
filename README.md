@@ -48,6 +48,18 @@ with the extracted content.
 - Depth of the crawl and specific behaviors related to image processing and PDF generation can be adjusted within the
   script's parameters and functions.
 
+## Building the Docker Image
+Navigate to the directory containing your Dockerfile and run the following command in your terminal:
+```
+docker build -t webtopdf-crawler .
+```
+
+## Running the Container
+If your script requires command-line arguments, you can pass them at the end of the docker run command. For instance:
+```
+docker run --rm -it webtopdf-crawler https://example.com
+```
+
 ## TODOs:
 ### - Performance Improvements
 Implement Asynchronous Requests: Utilize aiohttp or similar libraries to make asynchronous HTTP requests to speed up the crawling process, especially useful for deep crawls or sites with many internal links.
