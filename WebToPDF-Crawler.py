@@ -39,7 +39,7 @@ crawling, content extraction, and PDF generation operations automatically, outpu
 content from the crawled website.
 
 Example command line usage:
-    python script_name.py https://docs.cardano.org/introduction
+    python WebToPDF-Crawler.py https://docs.cardano.org/introduction
 
 This starts the crawling process at 'https://docs.cardano.org/introduction', processing internal links and generating a PDF
 with the extracted content.
