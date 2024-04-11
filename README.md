@@ -3,8 +3,9 @@
 #### Author: Redoracle
 #### License: MIT
 
-![WebToPDF-Crawler](https://raw.githubusercontent.com/redoracle/WebToPDF-Crawler/main/WebToPDF%20Crawler%20Logo.webp)
-
+<div style="text-align: center;">
+<img src="[https://raw.githubusercontent.com/redoracle/DockerSnap/main/DockerSnap%20logo.webp](https://raw.githubusercontent.com/redoracle/WebToPDF-Crawler/main/WebToPDF%20Crawler%20Logo.webp)" width="300" height="300">
+</div>
 
 This script performs a web crawling operation starting from a given URL, extracting content from the crawled pages,
 including text and the first encountered image. It handles images in various formats, with special handling for SVG images
