@@ -1,9 +1,6 @@
 # WebToPDF-Crawler
 
-This script performs a web crawling operation starting from a given URL, extracting content from the crawled pages,
-including text and the first encountered image. It handles images in various formats, with special handling for SVG images
-which are converted to JPEG format for inclusion in a PDF document. The script is designed to recursively crawl internal
-links up to a specified depth, ensuring it only processes pages within the given website domain.
+This script initiates a web crawling operation with a provided URL, extracting content from the crawled pages, including text and the first found image. It can handle photos in a variety of formats, including SVG images that are converted to JPEG format for use in a PDF document. The script is intended to recursively crawl internal links up to a predetermined depth, only processing pages within the specified website domain.
 
 <div style="text-align: center;">
 <img src="https://raw.githubusercontent.com/redoracle/DockerSnap/main/DockerSnap%20logo.webp" width="300" height="300">
