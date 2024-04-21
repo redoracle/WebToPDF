@@ -37,9 +37,9 @@ crawling, content extraction, and PDF generation operations automatically, outpu
 content from the crawled website.
 
 ## Example command line usage:
-    python WebToPDF-crawler.py https://docs.cardano.org/introduction
+    python WebToPDF-crawler.py https://cardano-community.github.io/guild-operators/docker/docker/
 
-This starts the crawling process at 'https://docs.cardano.org/introduction', processing internal links and generating a PDF
+This starts the crawling process at '[https://docs.cardano.org/introduction](https://cardano-community.github.io/guild-operators/docker/docker/)', processing internal links and generating a PDF
 with the extracted content.
 
 ## Notes:
