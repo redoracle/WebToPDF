@@ -41,7 +41,7 @@ content from the crawled website.
 Example command line usage:
     python WebToPDF-Crawler.py https://docs.cardano.org/introduction
 
-This starts the crawling process at 'https://docs.cardano.org/introduction', processing internal links and generating a PDF
+This starts the crawling process at 'https://cardano-community.github.io/guild-operators/docker/docker/', processing internal links and generating a PDF
 with the extracted content.
 
 Notes:
@@ -266,7 +266,7 @@ if __name__ == "__main__":
     # Initialize the argument parser
     parser = argparse.ArgumentParser(description="Crawl a website and create a PDF with its content.",
                                      usage="%(prog)s [options] start_url",
-                                     epilog="Example: python %(prog)s https://docs.cardano.org/introduction")
+                                     epilog="Example: python %(prog)s https://cardano-community.github.io/guild-operators/docker/docker/")
     
     # Add the start_url argument as a required positional argument
     parser.add_argument("start_url", help="The initial URL to start crawling from. This argument is required.")
