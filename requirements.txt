@@ -2,6 +2,7 @@ requests
 beautifulsoup4
 reportlab
 fpdf2
-logging
 Pillow
 CairoSVG
+aiohttp 
+asyncio
