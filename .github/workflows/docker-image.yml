@@ -12,6 +12,8 @@ on:
         required: false
         type: boolean
         default: false
+  schedule:
+    - cron: '0 0 * * 0'  # Every Sunday at midnight UTC
   push:
     paths:
       - 'WebToPDF-crawler.py'
@@ -51,26 +53,18 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
 
     # Step 5: Build the Docker image
-    - name: Build WebToPdf Docker Image
-      run: |
-        docker build -t ${{ secrets.DOCKER_USER }}/webtopdf:latest .
-        docker build -t ${{ secrets.DOCKER_USER }}/webtopdf:${{ env.VERSION }} .
-
-    # Step 6: Push Docker image to Docker Hub
-    - name: Push Docker Image to Docker Hub
-      if: github.event.inputs.testing == 'false' && github.event.inputs.deploy_branch == 'master'
-      run: |
-        docker push ${{ secrets.DOCKER_USER }}/webtopdf:latest
-        docker push ${{ secrets.DOCKER_USER }}/webtopdf:${{ env.VERSION }}
-
-    # Step 7: Push Docker image to GitHub Container Registry (GHCR)
-    - name: Push Docker Image to GHCR
-      if: github.event.inputs.testing == 'false' && github.event.inputs.deploy_branch == 'master'
-      run: |
-        docker tag ${{ secrets.DOCKER_USER }}/webtopdf:latest ghcr.io/${{ github.repository_owner }}/webtopdf:latest
-        docker tag ${{ secrets.DOCKER_USER }}/webtopdf:${{ env.VERSION }} ghcr.io/${{ github.repository_owner }}/webtopdf:${{ env.VERSION }}
-        docker push ghcr.io/${{ github.repository_owner }}/webtopdf:latest
-        docker push ghcr.io/${{ github.repository_owner }}/webtopdf:${{ env.VERSION }}
+    - name: Build and Push Docker Image
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        file: ./Dockerfile
+        push: true
+        platforms: linux/amd64,linux/arm64
+        tags: |
+          ghcr.io/${{ github.repository_owner }}/webtopdf:${{ env.VERSION }}
+          ghcr.io/${{ github.repository_owner }}/webtopdf:latest
+          ${{ secrets.DOCKER_USER }}/webtopdf:${{ env.VERSION }}
+          ${{ secrets.DOCKER_USER }}/webtopdf:latest
 
     # Step 8: Check if GitHub release exists, and create one if it doesn't
     - name: Check if GitHub release exists
