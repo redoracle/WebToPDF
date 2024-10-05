@@ -70,16 +70,23 @@ jobs:
           ${{ secrets.DOCKER_USER }}/webtopdf:latest
 
     # Step 8: Check if GitHub release exists, and create one if it doesn't
+    # Step 8: Check if GitHub release exists
     - name: Check if GitHub release exists
       id: check_release
       run: |
-        response=$(curl -s -o /dev/null -w "%{http_code}" https://api.github.com/repos/${{ github.repository }}/releases/tags/v${{ env.VERSION }})
-        if [ "$response" -eq 404 ]; then
-          echo "Release does not exist. Creating one."
-          echo "create_release=true" >> $GITHUB_ENV
-        else
-          echo "Release already exists."
+        if [ -z "${{ env.VERSION }}" ]; then
+          echo "No version set, skipping release check."
           echo "create_release=false" >> $GITHUB_ENV
+        else
+          response=$(curl -s -o /dev/null -w "%{http_code}" https://api.github.com/repos/${{ github.repository }}/releases/tags/v${{ env.VERSION }})
+          if [ "$response" -eq 404 ]; then
+            echo "Release does not exist. Creating one."
+            echo "create_release=true" >> $GITHUB_ENV
+          else
+            echo "Release already exists."
+            echo "create_release=false" >> $GITHUB_ENV
+          fi
+        fi
 
     # Step 9: Create GitHub release if it does not exist
     - name: Create GitHub release
