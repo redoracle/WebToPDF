@@ -33,7 +33,6 @@ jobs:
     - name: Extract version from Dockerfile
       id: get_version
       run: |
-        VERSION=$(grep 'ARG VERSION=' Dockerfile | cut -d '=' -f2)
         echo "VERSION=$VERSION" >> $GITHUB_ENV
         echo "Version extracted: $VERSION"
 
