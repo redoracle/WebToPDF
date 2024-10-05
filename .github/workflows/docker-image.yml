@@ -33,8 +33,8 @@ jobs:
     - name: Extract version from Dockerfile
       id: get_version
       run: |
-        echo "VERSION=$VERSION" >> $GITHUB_ENV
-        echo "Version extracted: $VERSION"
+        echo "VERSION=${{ env.VERSION }}" >> $GITHUB_ENV
+        echo "VERSION=${{ env.VERSION }}"
 
     # Step 3: Log in to Docker Hub
     - name: Docker Login to Docker Hub
