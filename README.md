@@ -2,10 +2,13 @@
 ![GitHub Forks](https://img.shields.io/github/forks/redoracle/WebToPDF.svg?style=social&label=Fork)
 ![GitHub Issues](https://img.shields.io/github/issues/redoracle/WebToPDF.svg)
 ![GitHub License](https://img.shields.io/github/license/redoracle/WebToPDF.svg)
-![Docker Image Size](https://img.shields.io/docker/image-size/ghcr.io/redoracle/WebToPDF/latest)
-![Docker Pulls](https://img.shields.io/docker/pulls/ghcr.io/redoracle/WebToPDF.svg)
+![Docker Image Size](https://img.shields.io/docker/image-size/redoracle/webtopdf-crawler/latest)
+![Docker Pulls](https://img.shields.io/docker/pulls/redoracle/webtopdf-crawler.svg)
+![GitHub Releases](https://ghr.io/github.com/redoracle/WebToPDF/releases/download/latest/badge.svg)
 ![Build Status](https://github.com/redoracle/WebToPDF/actions/workflows/docker-image.yml/badge.svg)
+![GitHub Releases](https://ghr.io/github.com/redoracle/WebToPDF/releases/download/latest/badge.svg)
 ![Docker Hub](https://img.shields.io/docker/pulls/redoracle/webtopdf-crawler)
+![GitHub Container Registry](https://img.shields.io/docker/pulls/ghr.io/redoracle/webtopdf-crawler.svg)
 
 # WebToPDF-Crawler
 
@@ -17,32 +20,6 @@
 
 **WebToPDF-Crawler** is a robust and versatile tool designed to crawl websites starting from a specified URL, extract textual content and images from each crawled page, and compile the extracted data into a structured PDF document. Supporting various image formats, including SVG (converted to JPEG for seamless PDF inclusion), the crawler is built with scalability, performance, and user flexibility in mind. Key features include asynchronous requests, content filtering, interactive mode, and support for dynamic web content.
 
-## Key Features
-
-- **Web Crawling**: Initiates crawling from a user-provided URL, exploring internal links up to a specified depth using a breadth-first search strategy. Optionally includes external links based on user preference.
-
-- **Content Extraction**: Extracts clean textual content and the first encountered image from each visited page, ensuring readability by stripping HTML tags.
-
-- **Image Handling**: Supports various image formats with SVG images converted to JPEG using `cairosvg` and `Pillow`. Addresses color inversion issues using PIL's `ImageOps`.
-
-- **PDF Generation**: Compiles extracted content into a PDF document with sections for each crawled page, utilizing `FPDF` for dynamic headers, footers, and page numbering.
-
-- **Asynchronous Operations**: Employs `aiohttp` and `asyncio` for asynchronous HTTP requests, significantly speeding up the crawling process.
-
-- **Dynamic Content Support**: Integrates `Selenium` to handle dynamic web content loaded via JavaScript, ensuring comprehensive content extraction.
-
-- **Content Filtering**: Allows specification of filters to include or exclude certain types of content, such as text-only extraction or specific image types.
-
-- **Interactive Mode**: Offers an interactive mode where users can choose which discovered links to follow, providing greater control over the crawl.
-
-- **Crawl State Management**: Implements pause and resume functionality by saving the crawl state to disk, enabling efficient management of long-running crawls.
-
-- **Respect for `robots.txt`**: Parses and adheres to `robots.txt` policies to ensure ethical crawling practices.
-
-- **User-Agent Customization**: Allows customization of the HTTP User-Agent string to properly identify the crawler and reduce the risk of being blocked.
-
-- **Command-Line Interface (CLI) Enhancements**: Provides a comprehensive CLI with options for setting crawl depth, output directories, image formats, verbose logging, and more.
-
 ## Badges
 
 ![GitHub Repo Stars](https://img.shields.io/github/stars/redoracle/WebToPDF.svg?style=social&label=Star)
@@ -51,8 +28,54 @@
 ![GitHub License](https://img.shields.io/github/license/redoracle/WebToPDF.svg)
 ![Docker Image Size](https://img.shields.io/docker/image-size/redoracle/webtopdf-crawler/latest)
 ![Docker Pulls](https://img.shields.io/docker/pulls/redoracle/webtopdf-crawler.svg)
+![GitHub Releases](https://ghr.io/github.com/redoracle/WebToPDF/releases/download/latest/badge.svg)
 ![Build Status](https://github.com/redoracle/WebToPDF/actions/workflows/docker-image.yml/badge.svg)
 ![Docker Hub](https://img.shields.io/docker/pulls/redoracle/webtopdf-crawler)
+![GitHub Container Registry](https://img.shields.io/docker/pulls/ghr.io/redoracle/webtopdf-crawler.svg)
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Requirements](#requirements)
+  - [Software Dependencies](#software-dependencies)
+  - [Python Libraries](#python-libraries)
+  - [Additional Requirements for Selenium](#additional-requirements-for-selenium)
+  - [Font Files](#font-files)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Basic Usage](#basic-usage)
+  - [Advanced Usage](#advanced-usage)
+- [Docker Usage](#docker-usage)
+  - [Docker Hub Repository](#docker-hub-repository)
+  - [GitHub Container Registry](#github-container-registry)
+  - [Pulling the Docker Image](#pulling-the-docker-image)
+  - [Running the Docker Container](#running-the-docker-container)
+  - [Building the Docker Image Locally](#building-the-docker-image-locally)
+- [Configuration Options](#configuration-options)
+  - [Command-Line Arguments](#command-line-arguments)
+  - [Content Filtering](#content-filtering)
+- [Additional Features](#additional-features)
+- [Notes](#notes)
+- [Future Enhancements](#future-enhancements)
+- [Contribution](#contribution)
+- [License](#license)
+- [Acknowledgements](#acknowledgements)
+
+## Key Features
+
+- **Web Crawling**: Initiates crawling from a user-provided URL, exploring internal links up to a specified depth using a breadth-first search strategy. Optionally includes external links based on user preference.
+- **Content Extraction**: Extracts clean textual content and the first encountered image from each visited page, ensuring readability by stripping HTML tags.
+- **Image Handling**: Supports various image formats with SVG images converted to JPEG using `cairosvg` and `Pillow`. Addresses color inversion issues using PIL's `ImageOps`.
+- **PDF Generation**: Compiles extracted content into a PDF document with sections for each crawled page, utilizing `FPDF` for dynamic headers, footers, and page numbering.
+- **Asynchronous Operations**: Employs `aiohttp` and `asyncio` for asynchronous HTTP requests, significantly speeding up the crawling process.
+- **Dynamic Content Support**: Integrates `Selenium` to handle dynamic web content loaded via JavaScript, ensuring comprehensive content extraction.
+- **Content Filtering**: Allows specification of filters to include or exclude certain types of content, such as text-only extraction or specific image types.
+- **Interactive Mode**: Offers an interactive mode where users can choose which discovered links to follow, providing greater control over the crawl.
+- **Crawl State Management**: Implements pause and resume functionality by saving the crawl state to disk, enabling efficient management of long-running crawls.
+- **Respect for `robots.txt`**: Parses and adheres to `robots.txt` policies to ensure ethical crawling practices.
+- **User-Agent Customization**: Allows customization of the HTTP User-Agent string to properly identify the crawler and reduce the risk of being blocked.
+- **Command-Line Interface (CLI) Enhancements**: Provides a comprehensive CLI with options for setting crawl depth, output directories, image formats, verbose logging, and more.
 
 ## Requirements
 
@@ -251,7 +274,7 @@ python WebToPDF-Crawler.py https://example.com \
 
 ## Docker Usage
 
-For ease of deployment and to ensure consistency across environments, you can use Docker to run **WebToPDF-Crawler**. Below are instructions for building and using Docker images.
+For ease of deployment and to ensure consistency across environments, you can use Docker to run **WebToPDF-Crawler**. Below are instructions for using Docker images from both Docker Hub and GitHub Container Registry (ghr.io).
 
 ### Docker Hub Repository
 
@@ -259,7 +282,15 @@ You can find the Docker images on Docker Hub:
 
 - **Docker Hub Repository**: [redoracle/webtopdf-crawler](https://hub.docker.com/r/redoracle/webtopdf-crawler)
 
+### GitHub Container Registry
+
+Docker images are also available on GitHub Container Registry:
+
+- **GitHub Container Registry (ghr.io)**: [ghr.io/redoracle/webtopdf-crawler](https://ghr.io/redoracle/webtopdf-crawler)
+
 ### Pulling the Docker Image
+
+#### From Docker Hub
 
 Pull the latest Docker image from Docker Hub:
 
@@ -267,9 +298,19 @@ Pull the latest Docker image from Docker Hub:
 docker pull redoracle/webtopdf-crawler:latest
 ```
 
+#### From GitHub Container Registry (ghr.io)
+
+Pull the latest Docker image from GitHub Container Registry:
+
+```bash
+docker pull ghr.io/redoracle/webtopdf-crawler:latest
+```
+
 ### Running the Docker Container
 
 Use the following command to run the crawler using Docker. Replace the placeholders with your desired parameters.
+
+#### Using Docker Hub Image
 
 ```bash
 docker run --rm -it \
@@ -279,14 +320,26 @@ docker run --rm -it \
   https://example.com -d 2 -o output.pdf -f ./fonts/ -v
 ```
 
+#### Using GitHub Container Registry Image
+
+```bash
+docker run --rm -it \
+  -v $(pwd)/fonts:/app/fonts \
+  -v $(pwd)/output:/app/output \
+  ghr.io/redoracle/webtopdf-crawler \
+  https://example.com -d 2 -o output.pdf -f ./fonts/ -v
+```
+
 **Explanation:**
 
 - `--rm`: Automatically remove the container after it exits.
 - `-it`: Interactive mode with a TTY.
 - `-v $(pwd)/fonts:/app/fonts`: Mounts the local `fonts` directory to the container.
 - `-v $(pwd)/output:/app/output`: Mounts a local `output` directory to store the generated PDF.
-- `redoracle/webtopdf-crawler`: Specifies the Docker image to use.
+- `redoracle/webtopdf-crawler` or `ghr.io/redoracle/webtopdf-crawler`: Specifies the Docker image to use.
 - The remaining arguments are passed to the crawler script inside the container.
+
+**Note:** Ensure that the `fonts` directory and any necessary WebDriver binaries are accessible within the Docker container. You may need to adjust the Dockerfile to include WebDriver setup if not already configured.
 
 ### Building the Docker Image Locally
 
@@ -383,11 +436,8 @@ Allows customization of the HTTP User-Agent string to properly identify the craw
 ## Notes
 
 - **Error Handling**: The script includes comprehensive error handling for network requests, image processing, and PDF generation. Issues are logged to aid in troubleshooting.
-
 - **Logging**: Verbose logging can be enabled with the `-v` flag to receive detailed information about the crawling process, including pages crawled, images processed, and any errors encountered.
-
 - **Performance Optimization**: The script optimizes image processing by handling conversions asynchronously and limiting concurrent operations to prevent resource exhaustion.
-
 - **Extensibility**: The modular design allows for easy integration of additional features, such as support for more content types or integration with web APIs.
 
 ## Future Enhancements
@@ -395,15 +445,10 @@ Allows customization of the HTTP User-Agent string to properly identify the craw
 While the script incorporates many advanced features, future improvements can include:
 
 - **Comprehensive Unit Testing**: Develop a suite of unit tests covering all major functionalities to ensure reliability and facilitate future development.
-
 - **Advanced Content Filtering**: Implement more sophisticated filtering options, such as CSS selectors or XPath expressions, for precise content extraction.
-
 - **API Integration**: Automatically detect and utilize available web APIs for more efficient content retrieval when available.
-
 - **Graphical User Interface (GUI)**: Develop a GUI for users who prefer not to use command-line tools, enhancing accessibility.
-
 - **Distributed Crawling**: Implement distributed crawling capabilities to handle extremely large websites more efficiently.
-
 - **Enhanced PDF Formatting**: Introduce advanced formatting options, such as custom styles, tables of contents, and embedded hyperlinks.
 
 ## Contribution
