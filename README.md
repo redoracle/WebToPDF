@@ -2,21 +2,21 @@
 ![GitHub Forks](https://img.shields.io/github/forks/redoracle/WebToPDF.svg?style=social&label=Fork)
 ![GitHub Issues](https://img.shields.io/github/issues/redoracle/WebToPDF.svg)
 ![GitHub License](https://img.shields.io/github/license/redoracle/WebToPDF.svg)
-![Docker Image Size](https://img.shields.io/docker/image-size/redoracle/webtopdf-crawler/latest)
-![Docker Pulls](https://img.shields.io/docker/pulls/redoracle/webtopdf-crawler.svg)
+![Docker Image Size](https://img.shields.io/docker/image-size/redoracle/webtopdf/latest)
+![Docker Pulls](https://img.shields.io/docker/pulls/redoracle/webtopdf.svg)
 ![Build Status](https://github.com/redoracle/WebToPDF/actions/workflows/docker-image.yml/badge.svg)
 ![Docker Hub](https://img.shields.io/docker/pulls/redoracle/webtopdf)
 ![GitHub Container Registry](https://img.shields.io/docker/pulls/ghr.io/redoracle/webtopdf.svg)
 
-# WebToPDF-Crawler
+# WebToPDF
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/redoracle/WebToPDF/refs/heads/main/WebToPDF%20Crawler%20Logo.webp" alt="WebToPDF-Crawler Logo" width="300" height="300">
+  <img src="https://raw.githubusercontent.com/redoracle/WebToPDF/refs/heads/main/WebToPDF%20Crawler%20Logo.webp" alt="WebToPDF Logo" width="300" height="300">
 </div>
 
 ## Overview
 
-**WebToPDF-Crawler** is a robust and versatile tool designed to crawl websites starting from a specified URL, extract textual content and images from each crawled page, and compile the extracted data into a structured PDF document. Supporting various image formats, including SVG (converted to JPEG for seamless PDF inclusion), the crawler is built with scalability, performance, and user flexibility in mind. Key features include asynchronous requests, content filtering, interactive mode, and support for dynamic web content.
+**WebToPDF** is a robust and versatile tool designed to crawl websites starting from a specified URL, extract textual content and images from each crawled page, and compile the extracted data into a structured PDF document. Supporting various image formats, including SVG (converted to JPEG for seamless PDF inclusion), the crawler is built with scalability, performance, and user flexibility in mind. Key features include asynchronous requests, content filtering, interactive mode, and support for dynamic web content.
 
 ## Badges
 
@@ -24,12 +24,12 @@
 ![GitHub Forks](https://img.shields.io/github/forks/redoracle/WebToPDF.svg?style=social&label=Fork)
 ![GitHub Issues](https://img.shields.io/github/issues/redoracle/WebToPDF.svg)
 ![GitHub License](https://img.shields.io/github/license/redoracle/WebToPDF.svg)
-![Docker Image Size](https://img.shields.io/docker/image-size/redoracle/webtopdf-crawler/latest)
-![Docker Pulls](https://img.shields.io/docker/pulls/redoracle/webtopdf-crawler.svg)
+![Docker Image Size](https://img.shields.io/docker/image-size/redoracle/webtopdf/latest)
+![Docker Pulls](https://img.shields.io/docker/pulls/redoracle/webtopdf.svg)
 ![GitHub Releases](https://ghr.io/github.com/redoracle/WebToPDF/releases/download/latest/badge.svg)
 ![Build Status](https://github.com/redoracle/WebToPDF/actions/workflows/docker-image.yml/badge.svg)
-![Docker Hub](https://img.shields.io/docker/pulls/redoracle/webtopdf-crawler)
-![GitHub Container Registry](https://img.shields.io/docker/pulls/ghr.io/redoracle/webtopdf-crawler.svg)
+![Docker Hub](https://img.shields.io/docker/pulls/redoracle/webtopdf)
+![GitHub Container Registry](https://img.shields.io/docker/pulls/ghr.io/redoracle/webtopdf.svg)
 
 ## Table of Contents
 
@@ -109,13 +109,13 @@ These fonts are essential for proper text rendering in the generated PDF. You ca
 
 ## Installation
 
-Follow these steps to set up the **WebToPDF-Crawler** environment using Conda:
+Follow these steps to set up the **WebToPDF** environment using Conda:
 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/redoracle/WebToPDF-Crawler.git
-cd WebToPDF-Crawler
+git clone https://github.com/redoracle/WebToPDF.git
+cd WebToPDF
 ```
 
 ### 2. Create a New Conda Environment
@@ -239,7 +239,7 @@ Run the script from the command line with the required and optional arguments as
 ### Basic Usage
 
 ```bash
-python WebToPDF-Crawler.py https://example.com
+python WebToPDF.py https://example.com
 ```
 
 This command starts crawling at `https://example.com` with default settings (depth=3, output PDF named `web_content.pdf`).
@@ -247,7 +247,7 @@ This command starts crawling at `https://example.com` with default settings (dep
 ### Advanced Usage
 
 ```bash
-python WebToPDF-Crawler.py https://example.com \
+python WebToPDF.py https://example.com \
   -d 2 \
   -o output.pdf \
   -f ./fonts/ \
@@ -272,19 +272,19 @@ python WebToPDF-Crawler.py https://example.com \
 
 ## Docker Usage
 
-For ease of deployment and to ensure consistency across environments, you can use Docker to run **WebToPDF-Crawler**. Below are instructions for using Docker images from both Docker Hub and GitHub Container Registry (ghr.io).
+For ease of deployment and to ensure consistency across environments, you can use Docker to run **WebToPDF**. Below are instructions for using Docker images from both Docker Hub and GitHub Container Registry (ghr.io).
 
 ### Docker Hub Repository
 
 You can find the Docker images on Docker Hub:
 
-- **Docker Hub Repository**: [redoracle/webtopdf-crawler](https://hub.docker.com/r/redoracle/webtopdf-crawler)
+- **Docker Hub Repository**: [redoracle/webtopdf](https://hub.docker.com/r/redoracle/webtopdf)
 
 ### GitHub Container Registry
 
 Docker images are also available on GitHub Container Registry:
 
-- **GitHub Container Registry (ghr.io)**: [ghr.io/redoracle/webtopdf-crawler](https://ghr.io/redoracle/webtopdf-crawler)
+- **GitHub Container Registry (ghr.io)**: [ghr.io/redoracle/webtopdf](https://ghr.io/redoracle/webtopdf)
 
 ### Pulling the Docker Image
 
@@ -293,7 +293,7 @@ Docker images are also available on GitHub Container Registry:
 Pull the latest Docker image from Docker Hub:
 
 ```bash
-docker pull redoracle/webtopdf-crawler:latest
+docker pull redoracle/webtopdf:latest
 ```
 
 #### From GitHub Container Registry (ghr.io)
@@ -301,7 +301,7 @@ docker pull redoracle/webtopdf-crawler:latest
 Pull the latest Docker image from GitHub Container Registry:
 
 ```bash
-docker pull ghr.io/redoracle/webtopdf-crawler:latest
+docker pull ghr.io/redoracle/webtopdf:latest
 ```
 
 ### Running the Docker Container
@@ -314,7 +314,7 @@ Use the following command to run the crawler using Docker. Replace the placehold
 docker run --rm -it \
   -v $(pwd)/fonts:/app/fonts \
   -v $(pwd)/output:/app/output \
-  redoracle/webtopdf-crawler \
+  redoracle/webtopdf \
   https://example.com -d 2 -o output.pdf -f ./fonts/ -v
 ```
 
@@ -324,7 +324,7 @@ docker run --rm -it \
 docker run --rm -it \
   -v $(pwd)/fonts:/app/fonts \
   -v $(pwd)/output:/app/output \
-  ghr.io/redoracle/webtopdf-crawler \
+  ghr.io/redoracle/webtopdf \
   https://example.com -d 2 -o output.pdf -f ./fonts/ -v
 ```
 
@@ -334,7 +334,7 @@ docker run --rm -it \
 - `-it`: Interactive mode with a TTY.
 - `-v $(pwd)/fonts:/app/fonts`: Mounts the local `fonts` directory to the container.
 - `-v $(pwd)/output:/app/output`: Mounts a local `output` directory to store the generated PDF.
-- `redoracle/webtopdf-crawler` or `ghr.io/redoracle/webtopdf-crawler`: Specifies the Docker image to use.
+- `redoracle/webtopdf` or `ghr.io/redoracle/webtopdf`: Specifies the Docker image to use.
 - The remaining arguments are passed to the crawler script inside the container.
 
 **Note:** Ensure that the `fonts` directory and any necessary WebDriver binaries are accessible within the Docker container. You may need to adjust the Dockerfile to include WebDriver setup if not already configured.
@@ -346,14 +346,14 @@ If you prefer to build the Docker image yourself, follow these steps:
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/redoracle/WebToPDF-Crawler.git
-   cd WebToPDF-Crawler
+   git clone https://github.com/redoracle/WebToPDF.git
+   cd WebToPDF
    ```
 
 2. **Build the Docker Image:**
 
    ```bash
-   docker build -t webtopdf-crawler .
+   docker build -t webtopdf .
    ```
 
 3. **Run the Docker Container:**
@@ -362,7 +362,7 @@ If you prefer to build the Docker image yourself, follow these steps:
    docker run --rm -it \
      -v $(pwd)/fonts:/app/fonts \
      -v $(pwd)/output:/app/output \
-     webtopdf-crawler \
+     webtopdf \
      https://example.com -d 2 -o output.pdf -f ./fonts/ -v
    ```
 
