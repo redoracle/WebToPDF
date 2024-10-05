@@ -1,3 +1,12 @@
+![GitHub Repo Stars](https://img.shields.io/github/stars/redoracle/WebToPDF.svg?style=social&label=Star)
+![GitHub Forks](https://img.shields.io/github/forks/redoracle/WebToPDF.svg?style=social&label=Fork)
+![GitHub Issues](https://img.shields.io/github/issues/redoracle/WebToPDF.svg)
+![GitHub License](https://img.shields.io/github/license/redoracle/WebToPDF.svg)
+![Docker Image Size](https://img.shields.io/docker/image-size/ghcr.io/redoracle/WebToPDF/latest)
+![Docker Pulls](https://img.shields.io/docker/pulls/ghcr.io/redoracle/WebToPDF.svg)
+![Build Status](https://github.com/redoracle/WebToPDF/actions/workflows/docker-image.yml/badge.svg)
+
+
 # WebToPDF-Crawler
 
 <div style="text-align: center;">
