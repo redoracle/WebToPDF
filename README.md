@@ -5,7 +5,6 @@
 ![Docker Image Size](https://img.shields.io/docker/image-size/ghcr.io/redoracle/WebToPDF/latest)
 ![Docker Pulls](https://img.shields.io/docker/pulls/ghcr.io/redoracle/WebToPDF.svg)
 ![Build Status](https://github.com/redoracle/WebToPDF/actions/workflows/docker-image.yml/badge.svg)
-![GitHub Releases](https://ghr.io/github.com/redoracle/WebToPDF/releases/download/latest/badge.svg)
 ![Docker Hub](https://img.shields.io/docker/pulls/redoracle/webtopdf-crawler)
 
 # WebToPDF-Crawler
@@ -53,7 +52,6 @@
 ![Docker Image Size](https://img.shields.io/docker/image-size/redoracle/webtopdf-crawler/latest)
 ![Docker Pulls](https://img.shields.io/docker/pulls/redoracle/webtopdf-crawler.svg)
 ![Build Status](https://github.com/redoracle/WebToPDF/actions/workflows/docker-image.yml/badge.svg)
-![GitHub Releases](https://ghr.io/github.com/redoracle/WebToPDF/releases/download/latest/badge.svg)
 ![Docker Hub](https://img.shields.io/docker/pulls/redoracle/webtopdf-crawler)
 
 ## Requirements
