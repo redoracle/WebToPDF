@@ -6,7 +6,6 @@
 ![Docker Pulls](https://img.shields.io/docker/pulls/redoracle/webtopdf.svg)
 ![Build Status](https://github.com/redoracle/WebToPDF/actions/workflows/docker-image.yml/badge.svg)
 ![Docker Hub](https://img.shields.io/docker/pulls/redoracle/webtopdf)
-![GitHub Container Registry](https://img.shields.io/docker/pulls/ghr.io/redoracle/webtopdf.svg)
 
 # WebToPDF
 
@@ -29,7 +28,6 @@
 ![GitHub Releases](https://ghr.io/github.com/redoracle/WebToPDF/releases/download/latest/badge.svg)
 ![Build Status](https://github.com/redoracle/WebToPDF/actions/workflows/docker-image.yml/badge.svg)
 ![Docker Hub](https://img.shields.io/docker/pulls/redoracle/webtopdf)
-![GitHub Container Registry](https://img.shields.io/docker/pulls/ghr.io/redoracle/webtopdf.svg)
 
 ## Table of Contents
 
