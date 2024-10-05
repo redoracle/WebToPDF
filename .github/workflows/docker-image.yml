@@ -20,25 +20,90 @@ on:
 
 jobs:
   build-and-push:
-    env:
-      REGISTRY: docker.io
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v3
-    - name: Docker Login
+    # Step 1: Checkout the repository
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Step 2: Get the version from the Dockerfile or another source
+    - name: Extract version from Dockerfile
+      id: get_version
       run: |
-        echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USER }}" --password-stdin
+        VERSION=$(grep 'ARG VERSION=' Dockerfile | cut -d '=' -f2)
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+        echo "Version extracted: $VERSION"
+
+    # Step 3: Log in to Docker Hub
+    - name: Docker Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USER }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    # Step 4: Log in to GitHub Container Registry (GHCR)
+    - name: Docker Login to GHCR
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    # Step 5: Build the Docker image
     - name: Build WebToPdf Docker Image
       run: |
-        docker build -t ${{ env.REGISTRY }}/${{ secrets.DOCKER_USER }}/webtopdf:latest .
-    - name: Push Docker Image
+        docker build -t ${{ secrets.DOCKER_USER }}/webtopdf:latest .
+        docker build -t ${{ secrets.DOCKER_USER }}/webtopdf:${{ env.VERSION }} .
+
+    # Step 6: Push Docker image to Docker Hub
+    - name: Push Docker Image to Docker Hub
       if: github.event.inputs.testing == 'false' && github.event.inputs.deploy_branch == 'master'
       run: |
-        docker push ${{ env.REGISTRY }}/${{ secrets.DOCKER_USER }}/webtopdf:latest
+        docker push ${{ secrets.DOCKER_USER }}/webtopdf:latest
+        docker push ${{ secrets.DOCKER_USER }}/webtopdf:${{ env.VERSION }}
+
+    # Step 7: Push Docker image to GitHub Container Registry (GHCR)
+    - name: Push Docker Image to GHCR
+      if: github.event.inputs.testing == 'false' && github.event.inputs.deploy_branch == 'master'
+      run: |
+        docker tag ${{ secrets.DOCKER_USER }}/webtopdf:latest ghcr.io/${{ github.repository_owner }}/webtopdf:latest
+        docker tag ${{ secrets.DOCKER_USER }}/webtopdf:${{ env.VERSION }} ghcr.io/${{ github.repository_owner }}/webtopdf:${{ env.VERSION }}
+        docker push ghcr.io/${{ github.repository_owner }}/webtopdf:latest
+        docker push ghcr.io/${{ github.repository_owner }}/webtopdf:${{ env.VERSION }}
+
+    # Step 8: Check if GitHub release exists, and create one if it doesn't
+    - name: Check if GitHub release exists
+      id: check_release
+      run: |
+        response=$(curl -s -o /dev/null -w "%{http_code}" https://api.github.com/repos/${{ github.repository }}/releases/tags/v${{ env.VERSION }})
+        if [ "$response" -eq 404 ]; then
+          echo "Release does not exist. Creating one."
+          echo "create_release=true" >> $GITHUB_ENV
+        else
+          echo "Release already exists."
+          echo "create_release=false" >> $GITHUB_ENV
+
+    # Step 9: Create GitHub release if it does not exist
+    - name: Create GitHub release
+      if: env.create_release == 'true'
+      uses: actions/create-release@v1
+      with:
+        tag_name: v${{ env.VERSION }}
+        release_name: WebToPdf v${{ env.VERSION }}
+        draft: false
+        prerelease: false
+        body: |
+          WebToPdf version ${{ env.VERSION }} has been built and released.
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    # Step 10: Add summary details
     - name: Add summary details
       if: always()
       run: |
         echo "## Summary Details" >> $GITHUB_STEP_SUMMARY
-        echo "* Docker Image: ${{ env.REGISTRY }}/${{ secrets.DOCKER_USER }}/webtopdf:latest" >> $GITHUB_STEP_SUMMARY
+        echo "* Docker Image (Docker Hub): ${{ secrets.DOCKER_USER }}/webtopdf:latest, ${{ secrets.DOCKER_USER }}/webtopdf:${{ env.VERSION }}" >> $GITHUB_STEP_SUMMARY
+        echo "* Docker Image (GHCR): ghcr.io/${{ github.repository_owner }}/webtopdf:latest, ghcr.io/${{ github.repository_owner }}/webtopdf:${{ env.VERSION }}" >> $GITHUB_STEP_SUMMARY
         echo "* Deploy Branch: ${{ github.event.inputs.deploy_branch }}" >> $GITHUB_STEP_SUMMARY
         echo "* Testing: ${{ github.event.inputs.testing }}" >> $GITHUB_STEP_SUMMARY
