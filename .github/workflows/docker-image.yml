@@ -100,7 +100,7 @@ jobs:
         body: |
           WebToPdf version ${{ env.VERSION }} has been built and released.
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.WEB_GITHUB_TOKEN }}
 
     # Step 10: Add summary details
     - name: Add summary details
