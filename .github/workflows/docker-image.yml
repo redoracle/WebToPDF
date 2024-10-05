@@ -6,7 +6,7 @@ on:
       deploy_branch:
         description: Branch to deploy
         required: false
-        default: master
+        default: main
       testing:
         description: Testing workflow
         required: false
