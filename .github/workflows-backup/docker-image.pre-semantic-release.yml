@@ -1,3 +1,6 @@
+# Backed up on 2026-08-10
+# Reason: Migrated to semantic-release (version + tag + release) with Docker build as post-release step
+# Rollback: Restore this file to .github/workflows/ and remove release.yml
 name: Build and Push WebToPdf Docker Image
 
 on:
