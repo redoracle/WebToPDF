@@ -1,0 +1,105 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  packages: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
+
+      - name: Build and push Docker image
+        if: success()
+        env:
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: |
+          set -euo pipefail
+
+          if [ ! -f .release-prepared ]; then
+            echo "No release prepared — skipping Docker build"
+            exit 0
+          fi
+
+          VERSION=$(cat .release-prepared)
+          echo "Building Docker image for version ${VERSION}"
+
+          # Login to Docker Hub
+          echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USER}" --password-stdin
+
+          # Build and push to Docker Hub (primary)
+          docker buildx build . \
+            --platform linux/amd64 \
+            -t docker.io/${DOCKER_USER}/webtopdf:latest \
+            -t docker.io/${DOCKER_USER}/webtopdf:${VERSION} \
+            --push
+
+          echo "Docker Hub image pushed for ${VERSION}"
+
+          # Push to GitHub Container Registry (secondary, non-fatal)
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin 2>/dev/null || true
+          docker buildx build . \
+            --platform linux/amd64 \
+            -t ghcr.io/${{ github.repository_owner }}/webtopdf:latest \
+            -t ghcr.io/${{ github.repository_owner }}/webtopdf:${VERSION} \
+            --push 2>/dev/null || echo "Warning: GHCR push failed (non-fatal)"
+
+          echo "Docker image build complete for ${VERSION}"
+
+      - name: Sync Dockerfile to repo
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          if [ ! -f .release-prepared ]; then
+            echo "No release prepared — skipping sync"
+            exit 0
+          fi
+
+          VERSION=$(cat .release-prepared)
+          echo "Syncing Dockerfile for version ${VERSION}"
+
+          # Get current Dockerfile SHA from repo
+          DOCKERFILE_SHA=$(gh api repos/${{ github.repository }}/contents/Dockerfile --jq '.sha')
+
+          # Push updated Dockerfile
+          ENCODED_DOCKERFILE=$(base64 -w 0 Dockerfile)
+          gh api repos/${{ github.repository }}/contents/Dockerfile \
+            -X PUT \
+            -f message="chore: update Dockerfile VERSION to ${VERSION}" \
+            -f content="$ENCODED_DOCKERFILE" \
+            -f sha="$DOCKERFILE_SHA" \
+            --jq '.commit.sha'
+
+          echo "Dockerfile synced for ${VERSION}"
