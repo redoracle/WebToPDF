@@ -39,6 +39,7 @@ jobs:
 
       - name: Build and push Docker image
         if: success()
+        continue-on-error: true
         env:
           DOCKER_USER: ${{ secrets.DOCKER_USER }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
@@ -76,7 +77,7 @@ jobs:
           echo "Docker image build complete for ${VERSION}"
 
       - name: Sync Dockerfile to repo
-        if: success()
+        if: always()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
