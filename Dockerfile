@@ -1,7 +1,7 @@
 # Use an official Python runtime as a parent image
 FROM python:3.9-slim
 
-ARG VERSION=1.0.0
+ARG VERSION=1.1.1
 
 # Set the working directory in the container
 WORKDIR /root
